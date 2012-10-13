@@ -30,10 +30,10 @@ class StatusController {
         ),
       'mem' => array(
         'total' => round($mem[1]/1024),
-        'used'  => round($mem[2]/1024),
+        'used'  => round(($mem[2] + $mem[3] + $mem[4] - $mem[1])/1024),
         'free'  => round(($mem[2] + $mem[3] + $mem[4])/1024),
         ),
-      'cpu' => trim($cpu),
+      'cpu' => trim($cpu*100),
     );
   }
 }
