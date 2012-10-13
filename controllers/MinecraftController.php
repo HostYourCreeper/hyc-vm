@@ -9,7 +9,10 @@ class MinecraftController {
       return $request->error(404,'What would you do with minecraft?');
     if(!in_array($action, array('start','stop','restart','forced_stop','update')))
       return $request->error(404,'You can\'t do that.');
-    $result = shell_exec("/etc/init.d/minecraft ".$action);
+    if($action == 'forced_stop')
+      $result = shell_exec("kill -9 $(ps h -o pid -C java)");
+    else
+      $result = shell_exec("/etc/init.d/minecraft ".$action);
     if(!$result)
       return $request->error(500,'An error occured while executing command.');
     else

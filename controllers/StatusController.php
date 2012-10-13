@@ -4,7 +4,7 @@ class StatusController {
 
   public function getAction()
   {
-    $df = shell_exec("df -h | grep disk");
+    $df = shell_exec("df -h | grep xvda2");
     preg_match(
       "/([0-9\.]*)G\s*".
       "([0-9\.]*)G\s*".
@@ -25,12 +25,13 @@ class StatusController {
       'disk' => array(
         'total' => $match[1].'G',
         'used' => $match[2].'G',
-        'available' => $match[3].'G',
+        'free' => $match[3].'G',
         'percent' => $match[4].'%',
         ),
       'mem' => array(
-        'total' => $mem[1],
-        'free'  => $mem[2] + $mem[3] + $mem[4],
+        'total' => round($mem[1]/1024),
+        'used'  => round($mem[2]/1024),
+        'free'  => round(($mem[2] + $mem[3] + $mem[4])/1024),
         ),
       'cpu' => trim($cpu),
     );
