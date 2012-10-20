@@ -23,7 +23,9 @@ class OpenmodController {
       return $request->error(400,'Please choose an OpenMod.');
     $old = $this->getAction();
     $new = str_replace('.jar', '', $new);
-    shell_exec("sed -i 's/".$old['openmod']."/".$new."/g' /home/minecraft/.minecraft");
+    shell_exec("/etc/init.d/minecraft stop");
+    shell_exec("sed -i 's/\(SERVICE_NAME=\).*/\1".$new."/g' /home/minecraft/.minecraft");
+    shell_exec("/etc/init.d/minecraft start");
     return array('openmod' => $new);
   }
 }
