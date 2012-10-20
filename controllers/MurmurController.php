@@ -10,7 +10,7 @@ class MurmurController {
     if(!in_array($action, array('start','stop','restart')))
       return $request->error(404,'You can\'t do that.');
     
-    $result = shell_exec("/etc/init.d/murmur ".$action);
+    $result = shell_exec("/bin/bash /etc/init.d/murmur ".$action);
     if(!$result)
       return $request->error(500,'An error occured while executing command.');
     else
