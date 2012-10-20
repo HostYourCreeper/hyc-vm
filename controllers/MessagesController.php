@@ -23,7 +23,7 @@ class MessagesController {
         shell_exec('echo \'MSG_STOP="HERE"\' >> /home/minecraft/.minecraft');
         $old['stop'] = '"HERE"';
       }
-      shell_exec("sed -i 's/\(MSG_STOP=\).*/\1".($new['stop'])."/g' /home/minecraft/.minecraft");
+      shell_exec("sed -i 's/\(MSG_STOP=\).*/\\1".($new['stop'])."/g' /home/minecraft/.minecraft");
     } else
       $new['stop'] = $old['stop'];
     if($new['restart']) {
@@ -31,7 +31,7 @@ class MessagesController {
         shell_exec('echo \'MSG_REBOOT="HERE"\' >> /home/minecraft/.minecraft');
         $old['restart'] = '"HERE"';
       }
-      shell_exec("sed -i 's/\(MSG_REBOOT=\).*/\1".($new['restart'])."/g' /home/minecraft/.minecraft");
+      shell_exec("sed -i 's/\(MSG_REBOOT=\).*/\\1".($new['restart'])."/g' /home/minecraft/.minecraft");
 
     } else
       $new['restart'] = $old['restart'];
