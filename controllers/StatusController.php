@@ -21,6 +21,14 @@ class StatusController {
       $mem,
       $mem);
     $cpu = shell_exec("cat /proc/loadavg | cut -d' ' -f1");
+    $status = shell_exec("ps -C java -o time");
+    $status = explode("\n",trim($status));
+    $minecraft = 'PROCESSING';
+    switch(count($status) -1) {
+      case 0: $minecraft = 'OFFLINE'; break;
+      case 1: $minecraft = 'ONLINE'; break;
+      default: $minecraft = 'PROBLEM'; break;
+    }
     return array(
       'disk' => array(
         'total' => $match[1].'G',
@@ -34,6 +42,7 @@ class StatusController {
         'free'  => round(($mem[2] + $mem[3] + $mem[4])/1024),
         ),
       'cpu' => trim($cpu*100),
+      'minecraft' => $minecraft,
     );
   }
 }
