@@ -45,7 +45,7 @@ class StatusController {
         ),
       'cpu' => trim($cpu*100),
       'minecraft' => $minecraft,
-      'version' => $version,
+      'version' => trim($version),
       'openmod' => trim($openmod)
     );
   }
