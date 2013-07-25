@@ -29,6 +29,8 @@ class StatusController {
       case 1: $minecraft = 'ONLINE'; break;
       default: $minecraft = 'PROBLEM'; break;
     }
+    $openmod = shell_exec('grep SERVICE_NAME /home/minecraft/.minecraft | cut -d\'=\' -f 2');
+    $version = shell_exec('service minecraft version');
     return array(
       'disk' => array(
         'total' => $match[1].'G',
@@ -43,6 +45,8 @@ class StatusController {
         ),
       'cpu' => trim($cpu*100),
       'minecraft' => $minecraft,
+      'version' => $version,
+      'openmod' => $openmod
     );
   }
 }
