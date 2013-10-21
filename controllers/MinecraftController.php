@@ -12,7 +12,7 @@ class MinecraftController {
     if($action == 'forced_stop')
       $result = shell_exec("kill -9 $(ps h -o pid -C java)");
     else
-      $result = shell_exec("/etc/init.d/minecraft ".$action);
+      $result = shell_exec("LANG=fr_FR.utf-8; /etc/init.d/minecraft ".$action);
     if(!$result)
       return $request->error(500,'An error occured while executing command.');
     else
